@@ -21,12 +21,11 @@ const weatherInfo = document.getElementById('weather-info');
 const searchButton = document.getElementById('search-button');
 
 // --- Configuración de la API ---
-// La clave está en config.js para no publicarla en GitHub.
-// Si ves un aviso en la consola, crea ese archivo a partir de config.example.js.
+// La clave está en config.js y se incluye en el repositorio.
 const API_KEY = window.OPENWEATHER_API_KEY;
 
 if (!API_KEY) {
-    console.warn('Falta config.js. Copia config.example.js a config.js y añade tu API key de OpenWeatherMap.');
+    console.warn('No se encontró la API key. Revisa config.js.');
 }
 
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather';
