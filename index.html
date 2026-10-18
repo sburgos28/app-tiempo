@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+    App del Tiempo
+    Proyecto sencillo para practicar HTML, CSS y JavaScript.
+    Aquí está la estructura; los estilos viven en style.css y la lógica en app.js.
+-->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App tiempo</title>
+
+    <!-- Hoja de estilos -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="weather-container">
+
+        <!-- Formulario de búsqueda.
+             app.js intercepta el submit para que la página no se recargue. -->
+        <form class="search-box" id="weather-form">
+            <!-- required impide buscar con el campo vacío -->
+            <input type="text" id="city-input" placeholder="Busca una ciudad..." required autocomplete="off">
+
+            <!-- Dentro del botón hay dos cosas: el icono de la lupa y el spinner.
+                 El CSS muestra uno u otro según si el form tiene la clase is-loading. -->
+            <button type="submit" id="search-button" aria-label="Buscar">
+                <span class="button-icon" aria-hidden="true">🔍</span>
+                <span class="spinner" aria-hidden="true"></span>
+            </button>
+        </form>
+
+        <!-- Tarjeta con la información del tiempo -->
+        <section class="weather-info" id="weather-info">
+
+            <!-- Nombre de la ciudad -->
+            <h2 id="city-name">Ciudad</h2>
+
+            <!-- Icono que devuelve OpenWeatherMap (versión de día o de noche).
+                 Empieza oculto hasta que hay datos. -->
+            <img id="weather-icon" class="weather-icon" alt="" hidden>
+
+            <!-- Temperatura en grados Celsius -->
+            <div class="weather-temp">
+                <span id="temp-value">--</span> <span class="temp-unit">°C</span>
+            </div>
+
+            <!-- Descripción del tiempo (ej: "nubes", "lluvia ligera") -->
+            <p id="weather-description">Descripción del tiempo</p>
+
+            <!-- Datos extra: humedad y probabilidad de lluvia.
+                 FUTURO: para añadir otro dato, copia una tarjeta .weather-detail,
+                 dale un id nuevo y rellénala desde app.js. -->
+            <div class="weather-details">
+                <div class="weather-detail">
+                    <span class="detail-icon" aria-hidden="true">💧</span>
+                    <span class="detail-label">Humedad</span>
+                    <span class="detail-value" id="humidity-value">--%</span>
+                </div>
+                <div class="weather-detail">
+                    <span class="detail-icon" aria-hidden="true">🌧️</span>
+                    <span class="detail-label">Prob. de lluvia</span>
+                    <span class="detail-value" id="rain-value">--%</span>
+                </div>
+            </div>
+
+            <!--
+                FUTURO: aquí podríamos añadir la previsión de los próximos días,
+                un selector de °C / °F o más datos como el viento.
+            -->
+        </section>
+    </main>
+
+    <!--
+        config.js guarda la API key y NO se sube a GitHub (está en .gitignore).
+        Tiene que cargarse antes de app.js.
+        Si no existe, copia config.example.js a config.js y pon tu clave.
+    -->
+    <script src="config.js"></script>
+
+    <!-- Lógica de la aplicación -->
+    <script src="app.js"></script>
+</body>
+</html>

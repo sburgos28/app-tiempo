@@ -1,0 +1,212 @@
+/*
+    Estilos de la App del Tiempo
+    ----------------------------
+    Organización:
+    1. Reset y estilos generales
+    2. Fondo día / noche
+    3. Contenedor y tarjeta
+    4. Buscador y spinner
+    5. Icono, temperatura y descripción
+    6. Humedad y probabilidad de lluvia
+*/
+
+/* ---------- 1. Reset y estilos generales ---------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #5ba2e0, #00f2fe);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.8s ease;
+}
+
+/* ---------- 2. Fondo día / noche ---------- */
+/* app.js añade o quita esta clase según la hora de la ciudad buscada. */
+body.theme-night {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+}
+
+/* ---------- 3. Contenedor y tarjeta ---------- */
+.weather-container {
+    width: 100%;
+    max-width: 380px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333637;
+}
+
+.weather-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* ---------- 4. Buscador y spinner ---------- */
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-box button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0c8aeb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-box button:hover {
+    background-color: #076bb5;
+}
+
+/* Mientras se busca, el botón se deshabilita desde app.js */
+.search-box button:disabled {
+    opacity: 0.75;
+    cursor: wait;
+}
+
+/* El spinner está oculto por defecto... */
+.search-box .spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+/* ...y solo aparece cuando el formulario tiene la clase is-loading */
+.search-box.is-loading .button-icon {
+    display: none;
+}
+
+.search-box.is-loading .spinner {
+    display: block;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ---------- 5. Icono, temperatura y descripción ---------- */
+.weather-icon {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: -10px auto 0;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.15));
+}
+
+/* El atributo hidden del HTML gana a la regla anterior */
+.weather-icon[hidden] {
+    display: none;
+}
+
+/* Pequeña animación cada vez que cambia el icono */
+.weather-icon.icon-appear {
+    animation: icon-pop 0.4s ease;
+}
+
+@keyframes icon-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.weather-container .weather-temp {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333637;
+}
+
+.temp-unit {
+    font-size: 24px;
+    vertical-align: super;
+}
+
+#weather-description {
+    font-size: 18px;
+    color: #6d797d;
+    text-transform: capitalize;
+}
+
+/* ---------- 6. Humedad y probabilidad de lluvia ---------- */
+.weather-details {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.weather-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+    padding: 10px 8px;
+    background-color: rgba(12, 138, 235, 0.08);
+    border-radius: 8px;
+}
+
+.detail-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #6d797d;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.detail-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333637;
+}
+
+/*
+    FUTURO:
+    - Usar variables CSS (:root { --color-fondo: ... }) para cambiar el tema
+      y los colores desde un solo sitio.
+    - Añadir @media (max-width: 420px) para ajustar tamaños en móviles.
+    - Respetar prefers-reduced-motion para quitar las animaciones.
+    - Cambiar el fondo según el tipo de tiempo (lluvia, nieve...).
+*/

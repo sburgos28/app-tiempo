@@ -1,0 +1,9 @@
+# Configuración local con la API key (no se sube a GitHub)
+config.js
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuración del editor (opcional)
+.vscode/
