@@ -1,0 +1,53 @@
+name: Deploy a GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Si se suben varios cambios seguidos, solo deja el último despliegue en marcha.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      # Genera config.js a partir del secret del repositorio.
+      # Así la API key no está guardada en el código.
+      - name: Preparar la web
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+        run: |
+          if [ -z "$OPENWEATHER_API_KEY" ]; then
+            echo "Falta el secret OPENWEATHER_API_KEY en el repositorio."
+            exit 1
+          fi
+          mkdir -p _site
+          cp index.html style.css app.js screenshot.png _site/
+          printf "window.OPENWEATHER_API_KEY = '%s';\n" "$OPENWEATHER_API_KEY" > _site/config.js
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir el artefacto
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Desplegar en Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

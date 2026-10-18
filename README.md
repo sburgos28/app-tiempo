@@ -59,6 +59,20 @@ app-tiempo/
 └── README.md
 ```
 
+## Despliegue en GitHub Pages
+
+El repositorio incluye un workflow de GitHub Actions (`.github/workflows/deploy.yml`) que genera `config.js` con el secret `OPENWEATHER_API_KEY` y publica la web en GitHub Pages.
+
+Para configurarlo, añade el secret en **Settings → Secrets and variables → Actions**, o desde la terminal:
+
+```bash
+gh secret set OPENWEATHER_API_KEY
+```
+
+La web quedará publicada en `https://sburgos28.github.io/app-tiempo/`.
+
+> En una web estática la clave se puede ver desde el navegador. El secret sirve para que no esté guardada en el repositorio.
+
 ## Notas
 
 - Si aparece "Ciudad no encontrada", revisa que el nombre de la ciudad esté bien escrito.
