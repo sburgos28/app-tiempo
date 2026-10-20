@@ -4,7 +4,7 @@ Una app sencilla para consultar el tiempo de una ciudad. La hice como proyecto d
 
 **Demo:** https://sburgos28.github.io/app-tiempo/
 
-![Captura de la app](screenshot.png)
+![Demo de la App del Tiempo: búsqueda de Barcelona y Tokyo](assets/demo.gif)
 
 ## ¿Qué hace?
 
@@ -36,10 +36,13 @@ Una app sencilla para consultar el tiempo de una ciudad. La hice como proyecto d
 
 ```
 app-tiempo/
+├── assets/
+│   └── demo.gif    # Demo animada
 ├── index.html      # Estructura de la página
 ├── style.css       # Estilos (día/noche, spinner, tarjetas...)
 ├── app.js          # Lógica y peticiones a la API
 ├── config.js       # API key de OpenWeatherMap
+├── LICENSE
 └── README.md
 ```
 
@@ -61,4 +64,6 @@ app-tiempo/
 
 Proyecto de aprendizaje hecho por [sburgos28](https://github.com/sburgos28).
 
-Uso libre para aprender.
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta [LICENSE](LICENSE).
