@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-    App del Tiempo
-    Proyecto sencillo para practicar HTML, CSS y JavaScript.
-    Aquí está la estructura; los estilos viven en style.css y la lógica en app.js.
--->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -16,65 +11,76 @@
 <body>
     <main class="weather-container">
 
-        <!-- Formulario de búsqueda.
-             app.js intercepta el submit para que la página no se recargue. -->
+        <!-- app.js intercepta el submit para que la página no se recargue. -->
         <form class="search-box" id="weather-form">
-            <!-- required impide buscar con el campo vacío -->
-            <input type="text" id="city-input" placeholder="Busca una ciudad..." required autocomplete="off">
+            <label class="sr-only" for="city-input">Ciudad</label>
+            <input
+                type="text"
+                id="city-input"
+                name="city"
+                placeholder="Busca una ciudad..."
+                required
+                autocomplete="off"
+                enterkeyhint="search"
+            >
 
-            <!-- Dentro del botón hay dos cosas: el icono de la lupa y el spinner.
-                 El CSS muestra uno u otro según si el form tiene la clase is-loading. -->
+            <!-- El CSS alterna la lupa y el spinner con la clase is-loading. -->
             <button type="submit" id="search-button" aria-label="Buscar">
-                <span class="button-icon" aria-hidden="true">🔍</span>
+                <span class="button-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="m20 20-3.5-3.5"></path>
+                    </svg>
+                </span>
                 <span class="spinner" aria-hidden="true"></span>
             </button>
         </form>
 
-        <!-- Tarjeta con la información del tiempo -->
-        <section class="weather-info" id="weather-info">
+        <!-- Los cambios de estado se anuncian a lectores de pantalla. -->
+        <section class="weather-info" id="weather-info" aria-live="polite" aria-atomic="true" aria-busy="false">
 
-            <!-- Nombre de la ciudad -->
-            <h2 id="city-name">Ciudad</h2>
+            <h2 id="city-name">El tiempo</h2>
 
-            <!-- Icono que devuelve OpenWeatherMap (versión de día o de noche).
-                 Empieza oculto hasta que hay datos. -->
             <img id="weather-icon" class="weather-icon" alt="" hidden>
 
-            <!-- Temperatura en grados Celsius -->
             <div class="weather-temp">
                 <span id="temp-value">--</span> <span class="temp-unit">°C</span>
             </div>
 
-            <!-- Descripción del tiempo (ej: "nubes", "lluvia ligera") -->
-            <p id="weather-description">Descripción del tiempo</p>
+            <p id="weather-description">Escribe una ciudad para empezar.</p>
 
-            <!-- Datos extra: humedad y probabilidad de lluvia.
-                 FUTURO: para añadir otro dato, copia una tarjeta .weather-detail,
-                 dale un id nuevo y rellénala desde app.js. -->
             <div class="weather-details">
                 <div class="weather-detail">
-                    <span class="detail-icon" aria-hidden="true">💧</span>
+                    <span class="detail-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3.5c3.2 3.6 5.5 6.5 5.5 9.5a5.5 5.5 0 0 1-11 0c0-3 2.3-5.9 5.5-9.5Z"></path>
+                        </svg>
+                    </span>
                     <span class="detail-label">Humedad</span>
                     <span class="detail-value" id="humidity-value">--%</span>
                 </div>
                 <div class="weather-detail">
-                    <span class="detail-icon" aria-hidden="true">🌧️</span>
+                    <span class="detail-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 15a4 4 0 0 1 .6-8 5.5 5.5 0 0 1 10.4 1.4A3.4 3.4 0 0 1 17.4 15H7Z"></path>
+                            <path d="M8.5 18.5 7.8 20M12.5 18.5l-.7 1.5M16.5 18.5l-.7 1.5"></path>
+                        </svg>
+                    </span>
                     <span class="detail-label">Prob. de lluvia</span>
                     <span class="detail-value" id="rain-value">--%</span>
                 </div>
             </div>
-
-            <!--
-                FUTURO: aquí podríamos añadir la previsión de los próximos días,
-                un selector de °C / °F o más datos como el viento.
-            -->
         </section>
     </main>
 
-    <!-- config.js guarda la API key de OpenWeatherMap. Se carga antes de app.js. -->
-    <script src="config.js"></script>
+    <noscript>
+        <p class="noscript">Esta app necesita JavaScript para consultar el tiempo.</p>
+    </noscript>
 
-    <!-- Lógica de la aplicación -->
+    <script src="config.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
